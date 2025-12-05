@@ -55,3 +55,38 @@ def book_detail(request, pk):
     elif request.method == 'DELETE':
         book.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+# kod umieszczamy w pliku views.py wybranej aplikacji
+
+from django.http import HttpResponse
+import datetime
+
+
+def welcome_view(request):
+    now = datetime.datetime.now()
+    html = f"""
+        <html><body>
+        Witaj użytkowniku! </br>
+        Aktualna data i czas na serwerze: {now}.
+        </body></html>"""
+    return HttpResponse(html)
+
+# pominięto inne importy
+from .models import Osoba
+
+# pominięto definicję innych widoków
+
+def osoba_list_html(request):
+    # pobieramy wszystkie obiekty Osoba z bazy poprzez QuerySet
+    osoby = Osoba.objects.all()
+    return HttpResponse(osoby)
+
+def osoba_detail_html(request, id):
+    # pobieramy konkretny obiekt Osoba
+    osoba = Osoba.objects.get(id=id)
+
+    return render(request,
+                  "biblioteka/osoba/detail.html",
+                  {'osoba': osoba})
