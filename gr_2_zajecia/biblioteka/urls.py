@@ -1,18 +1,13 @@
 from django.urls import path, include
 from . import views
 
+# definiujemy zmienną urlpatterns, która jest listą mapowań adresów URL na nasze widoki
 urlpatterns = [
     path('books/', views.book_list),
     path('books/<int:pk>/', views.book_detail),
-]
-
-from django.urls import path
-
-# importujemy moduł views (plik views.py z tego samego katalogu co plik bieżący)
-from . import views
-
-# definiujemy zmienną urlpatterns, która jest listą mapowań adresów URL na nasze widoki
-urlpatterns = [
     path("welcome/", views.welcome_view),
     path("html/osoby/", views.osoba_list_html, name="osoba-list"),
+    path("html/osoby/<int:id>/", views.osoba_detail_html, name="osoba-detail"),
+    path("html/osoby/dodaj/", views.osoba_create_html, name="osoba-create"),
+     path("html/osoby/dodaj_django/", views.osoba_create_django_form, name="osoba-create-django"),
 ]
